@@ -7,6 +7,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends RobotBase {
 
+    /* This class is the heart of the robot. Initializes peripherals and starts various periodics */
+
+    // Robot Modes and peripherals
     private IRobotMode disabledMode;
     private IRobotMode autonomousMode;
     private IRobotMode teleoperatedMode;
@@ -19,6 +22,7 @@ public class Robot extends RobotBase {
     private ILineDetector lineDetector;
     private ICompressor compressor;
 
+    // Instantiates the Modes and Peripherals
     public Robot() {
         gyroscope = new NavXMXP();
         //drive = new NullDrive();
@@ -36,6 +40,7 @@ public class Robot extends RobotBase {
         //teleoperatedMode = new MotorTest();
     }
 
+    // Starts the robot and dashboard
     @Override
     public void startCompetition() {
         HAL.observeUserProgramStarting();
@@ -59,7 +64,7 @@ public class Robot extends RobotBase {
         }
     }
 
-
+    // Reinitializes peripherals
     private void doPeripheralReinitialization() {
         cargoGuide.init();
         drive.init();
@@ -68,6 +73,7 @@ public class Robot extends RobotBase {
         compressor.init();
     }
 
+    // Starts peripheral periodics
     private void doPeripheralPeriodicProcessing() {
         drive.periodic();
         launcher.periodic();
@@ -75,6 +81,7 @@ public class Robot extends RobotBase {
         Debug.periodic();
     }
 
+    // Gets the desired mode based based off match events
     private IRobotMode getDesiredMode() {
         if (isDisabled()) {
             HAL.observeUserProgramDisabled();

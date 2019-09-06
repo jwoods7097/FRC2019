@@ -4,37 +4,46 @@ import com.ctre.phoenix.ErrorCode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 public class TalonEncoder implements IEncoder {
+
+    /* This class provides methods for using the Talon Encoders */
+
     private boolean isInverted = false;
     private TalonSRX talon;
     private double distancePerPulse = 1.0;
-        public TalonEncoder(TalonSRX talon) {
-            this.talon = talon;
-        }
+    
+    // Sets talon field to real talon
+    public TalonEncoder(TalonSRX talon) {
+        this.talon = talon;
+    }
 
-        @Override
-        public void setInverted(boolean inverted) {
-            isInverted = inverted;
-        }
+    // Inverts the direction of the motor
+    @Override
+    public void setInverted(boolean inverted) {
+        isInverted = inverted;
+    }
 
-        @Override
-        public void setDistancePerPulse(double distance) {
-            distancePerPulse = distance;
-        }
+    // Sets the distance per pulse of the encoder
+    @Override
+    public void setDistancePerPulse(double distance) {
+        distancePerPulse = distance;
+    }
 
-        @Override
-        public double getDistance() {
-            int rawEncoderValue =
-            talon.getSensorCollection().getQuadraturePosition();
-            if (isInverted) {
-                rawEncoderValue = -rawEncoderValue;
-            }
-            // Convert the raw reading to distance and return it
-            return ((double)rawEncoderValue) * distancePerPulse;
+    // Gets the distance from the raw encoder value
+    @Override
+    public double getDistance() {
+        int rawEncoderValue =
+        talon.getSensorCollection().getQuadraturePosition();
+        if (isInverted) {
+            rawEncoderValue = -rawEncoderValue;
         }
+        // Convert the raw reading to distance and return it
+        return ((double)rawEncoderValue) * distancePerPulse;
+    }
 
-        @Override
-        public void reset() {
-        ErrorCode error = talon.getSensorCollection().setQuadraturePosition(0, 500);
+    // Resets the encoder
+    @Override
+    public void reset() {
+    ErrorCode error = talon.getSensorCollection().setQuadraturePosition(0, 500);
         if (error != ErrorCode.OK) {
             // Bleh, overly generic exception.
             // If we were feeling fancy, we'd determine an ideal exception

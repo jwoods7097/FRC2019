@@ -2,6 +2,8 @@ package org.usfirst.frc.team5968.robot;
 
 public class Debug {
 
+    /* This class is used for printing debug redouts to the console */
+
     // Don't allow instantiation
     private Debug() {
         
@@ -37,9 +39,12 @@ public class Debug {
         }
     }
     
+    // Prints log to console
     public static void log(String message) {
         System.out.println(message);
     }
+
+    // Periodically prints log to console
     public static void logPeriodic(String message) {
         if (isPeriodicLogTick) {
             log(message);

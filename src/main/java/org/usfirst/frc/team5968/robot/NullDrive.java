@@ -2,6 +2,8 @@ package org.usfirst.frc.team5968.robot;
 
 public class NullDrive implements IDrive {
 
+    /* This class makes the Drive Base unable to do anything for testing */
+    
     @Override
     public DriveMode getCurrentDriveMode() {
         return DriveMode.DRIVERCONTROL;

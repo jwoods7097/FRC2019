@@ -6,6 +6,9 @@ import edu.wpi.first.wpilibj.Joystick;
 
 public class MotorTest implements IRobotMode
     {
+        /* This class is a robot mode for testing the motors.
+           requires a joystick to be plugged in */
+        
         private Boolean lastButton0 = false;
         private Boolean lastButton1 = false;
         private TalonSRX[] motors;
@@ -15,6 +18,7 @@ public class MotorTest implements IRobotMode
         private Boolean lastDoubleButton = false;
         private Boolean doubleMode = false;
 
+        // Assigns each motor to their respective CAN ports
         public MotorTest() {
             int[] canPorts = {
                 10, 3, 6, 4, 5, 7
@@ -29,6 +33,7 @@ public class MotorTest implements IRobotMode
             joystick = new Joystick(0);
         }
 
+        // Resets motor and button settings
         @Override
         public void init()
         {
@@ -42,10 +47,12 @@ public class MotorTest implements IRobotMode
         @Override
         public void periodic()
         {
+            // Booleans to store whether a button has been pressed
             Boolean button0 = joystick.getRawButton(11);
             Boolean button1 = joystick.getRawButton(12);
             Boolean doubleButton = joystick.getRawButton(7);
 
+            // Changes which motor is being tested for each button press
             if (button0 && !lastButton0) {
                 currentMotor--;
 
@@ -64,6 +71,7 @@ public class MotorTest implements IRobotMode
                 doubleMode = !doubleMode;
             }
 
+            // Sets motor speed to joystick y-value
             lastButton0 = button0;
             lastButton1 = button1;
             lastDoubleButton = doubleButton;

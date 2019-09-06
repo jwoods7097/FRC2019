@@ -1,5 +1,6 @@
 package org.usfirst.frc.team5968.robot; 
 
+// Interface for Encoder
 public interface IEncoder {
 
     public void setInverted(boolean inverted);
